@@ -135,7 +135,7 @@ def idle_loop(ser):
 # ====== 메인 진입점 ======
 def main():
     p = argparse.ArgumentParser(description="MG 모터 다중 제어 모듈")
-    p.add_argument('-p','--port', default='COM9', help='시리얼 포트')
+    p.add_argument('-p','--port', default='/dev/ttyUSB0', help='시리얼 포트')
     p.add_argument('-b','--baud', type=int, default=115200, help='Baud rate')
     args = p.parse_args()
 
