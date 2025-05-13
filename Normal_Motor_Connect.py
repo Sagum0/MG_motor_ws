@@ -1,3 +1,4 @@
+# 2초마다 특정 각도만큼 회전하며 Hz 단위로 각도를 monitoring 할 수 있는 코드
 #!/usr/bin/env python3
 
 import argparse, serial, sys, time
@@ -8,6 +9,9 @@ FRAME_HEAD = 0x3E
 PORT = 'COM9'
 # 우분투용 포트
 # PORT = '/dev/ttyUSB0'
+
+MOTOR_ID = (1, 2)
+poll_hz = 60
 
 def calc_checksum(buf: bytearray) -> int:
     return sum(buf) & 0xFF
@@ -87,11 +91,11 @@ def read_single_loop_angle(ser, motor_id):
     # 2) 전송
     ser.reset_input_buffer()
     ser.write(frame)
-    print(f"Tx(Read SL): {' '.join(f'{b:02X}' for b in frame)}")
+    # print(f"Tx(Read SL): {' '.join(f'{b:02X}' for b in frame)}")
 
     # 3) 응답 수신
     resp = read_frame(ser)
-    print(f"Rx(Read SL): {' '.join(f'{b:02X}' for b in resp)}")
+    # print(f"Rx(Read SL): {' '.join(f'{b:02X}' for b in resp)}")
 
     # 4) 응답 검증
     if resp[1] != cmd or resp[2] != motor_id or resp[3] != 4:
@@ -99,9 +103,9 @@ def read_single_loop_angle(ser, motor_id):
 
     # 5) 실제 데이터는 resp[5:9] ← resp[4]는 header_cs
     raw = int.from_bytes(resp[5:5+4], 'little', signed=False)
-    angle_deg = raw / 100.0
-
-    print(f"Single-loop angle: {angle_deg:.2f}°")
+    angle_deg = raw / 1000.0
+    
+    print(f" ID : {motor_id}         Single-loop angle: {angle_deg:.2f}° ")
     return angle_deg
 
 def connect(ser, motor_id):
@@ -118,7 +122,8 @@ def connect(ser, motor_id):
         resp = read_frame(ser)
         # print(f" Rx(ID = {motor_id}) : "," ".join(f"{b:02X}" for b in resp))
     
-    print(" << Connect Complete! >>")
+    print(f" ID : {motor_id} :: Connect Complete! :: ")
+    
     
 def main():
     p = argparse.ArgumentParser()
@@ -126,37 +131,54 @@ def main():
     p.add_argument('-b','--baud', type=int, default=115200)
     args = p.parse_args()
     
+    motor_angle = []
+    interval = 1.0 / poll_hz
+    
+    count = 0.0
+    angle_count = 0.0
+    
     try:
         with serial.Serial(args.port, args.baud, timeout=0.2) as ser:
-            for m_id in (1, 2):
+            # 연결 단계
+            for m_id in MOTOR_ID:
                 connect(ser, m_id)
+            
+            print(" Motor Connect Complete! ")
+            
+            while True:
+                # Polling 을 위한 t0 설정
+                t0 = time.perf_counter()
                 
-            for m_id in (1, 2):
-                rotate_single_loop(ser, m_id, angle_deg=0.0, speed_dps=2000.0, rev=False)
-
-            time.sleep(3)
-            
-            
-            for m_id in (1, 2):
-                _ = read_single_loop_angle(ser, m_id)
-                rotate_single_loop(ser, m_id, angle_deg=90.0, speed_dps=2000.0, rev=False)
+                print(" ")
+                for m_id in MOTOR_ID:
+                    _ = read_single_loop_angle(ser, m_id)
                 
-            time.sleep(3)
-            
-            for m_id in (1, 2):
-                _ = read_single_loop_angle(ser, m_id)
-                rotate_single_loop(ser, m_id, angle_deg=45.0, speed_dps=2000.0, rev=True)
+                print(count)
                 
-            time.sleep(3)
-            
-            for m_id in (1, 2):
-                _ = read_single_loop_angle(ser, m_id)
-                rotate_single_loop(ser, m_id, angle_deg=0.0, speed_dps=2000.0, rev=True)
+                    
+                dt = time.perf_counter() - t0
+                sleep_time = interval - dt
+                if sleep_time > 0:
+                    time.sleep(sleep_time)
+                    
+                count += 1
+                
+                if count % (poll_hz * 2) == 0:
+                    if angle_count >= 360:
+                        angle_count = 0
+                    for m_id in (1, 2):
+                        rotate_single_loop(ser, m_id, angle_deg=angle_count, speed_dps=2000.0, rev=False)
+                    angle_count += 120
+                
                 
     except serial.SerialException as e:
         print("포트 오류:", e, file=sys.stderr); sys.exit(1)
     except RuntimeError as e:
         print("통신 오류:", e, file=sys.stderr); sys.exit(2)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        ser.close()
 
 if __name__ == '__main__':
     main()
