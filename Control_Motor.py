@@ -6,9 +6,9 @@ import argparse, serial, sys, time
 FRAME_HEAD = 0x3E
 
 # 윈도우용 포트
-PORT = 'COM9'
+# PORT = 'COM9'
 # 우분투용 포트
-# PORT = '/dev/ttyUSB0'
+PORT = '/dev/ttyUSB0'
 
 MOTOR_ID = (1, 2, 3, 4, 5, 6)
 poll_hz = 60
@@ -167,7 +167,7 @@ def main():
                     if angle_count >= 360:
                         angle_count = 0
                     for m_id in MOTOR_ID:
-                        rotate_single_loop(ser, m_id, angle_deg=angle_count, speed_dps=2000.0, rev=False)
+                        rotate_single_loop(ser, m_id, angle_deg=angle_count, speed_dps=2000.0, rev=True)
                     angle_count += 120
                 
                 
