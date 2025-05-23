@@ -1,0 +1,3 @@
+[console_scripts]
+MG_Motor_Connect.py = MG_Motor_test.MG_Motor_Connect:main
+

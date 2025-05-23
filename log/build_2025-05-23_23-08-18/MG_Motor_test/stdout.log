@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/MG_Motor_test/MG_Motor_test.egg-info
+writing ../../build/MG_Motor_test/MG_Motor_test.egg-info/PKG-INFO
+writing dependency_links to ../../build/MG_Motor_test/MG_Motor_test.egg-info/dependency_links.txt
+writing entry points to ../../build/MG_Motor_test/MG_Motor_test.egg-info/entry_points.txt
+writing requirements to ../../build/MG_Motor_test/MG_Motor_test.egg-info/requires.txt
+writing top-level names to ../../build/MG_Motor_test/MG_Motor_test.egg-info/top_level.txt
+writing manifest file '../../build/MG_Motor_test/MG_Motor_test.egg-info/SOURCES.txt'
+reading manifest file '../../build/MG_Motor_test/MG_Motor_test.egg-info/SOURCES.txt'
+writing manifest file '../../build/MG_Motor_test/MG_Motor_test.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/pc/MG_motor_ws/build/MG_Motor_test/build
+creating /home/pc/MG_motor_ws/build/MG_Motor_test/build/lib
+creating /home/pc/MG_motor_ws/build/MG_Motor_test/build/lib/MG_Motor_test
+copying MG_Motor_test/__init__.py -> /home/pc/MG_motor_ws/build/MG_Motor_test/build/lib/MG_Motor_test
+copying MG_Motor_test/MG_Motor_Connect.py -> /home/pc/MG_motor_ws/build/MG_Motor_test/build/lib/MG_Motor_test
+running install
+running install_lib
+creating /home/pc/MG_motor_ws/install/MG_Motor_test/lib/python3.10/site-packages/MG_Motor_test
+copying /home/pc/MG_motor_ws/build/MG_Motor_test/build/lib/MG_Motor_test/__init__.py -> /home/pc/MG_motor_ws/install/MG_Motor_test/lib/python3.10/site-packages/MG_Motor_test
+copying /home/pc/MG_motor_ws/build/MG_Motor_test/build/lib/MG_Motor_test/MG_Motor_Connect.py -> /home/pc/MG_motor_ws/install/MG_Motor_test/lib/python3.10/site-packages/MG_Motor_test
+byte-compiling /home/pc/MG_motor_ws/install/MG_Motor_test/lib/python3.10/site-packages/MG_Motor_test/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/pc/MG_motor_ws/install/MG_Motor_test/lib/python3.10/site-packages/MG_Motor_test/MG_Motor_Connect.py to MG_Motor_Connect.cpython-310.pyc
+running install_data
+creating /home/pc/MG_motor_ws/install/MG_Motor_test/share/ament_index
+creating /home/pc/MG_motor_ws/install/MG_Motor_test/share/ament_index/resource_index
+creating /home/pc/MG_motor_ws/install/MG_Motor_test/share/ament_index/resource_index/packages
+copying resource/MG_Motor_test -> /home/pc/MG_motor_ws/install/MG_Motor_test/share/ament_index/resource_index/packages
+copying package.xml -> /home/pc/MG_motor_ws/install/MG_Motor_test/share/MG_Motor_test
+running install_egg_info
+Copying ../../build/MG_Motor_test/MG_Motor_test.egg-info to /home/pc/MG_motor_ws/install/MG_Motor_test/lib/python3.10/site-packages/MG_Motor_test-0.0.0-py3.10.egg-info
+running install_scripts
+Installing MG_Motor_Connect.py script to /home/pc/MG_motor_ws/install/MG_Motor_test/lib/MG_Motor_test
+writing list of installed files to '/home/pc/MG_motor_ws/build/MG_Motor_test/install.log'

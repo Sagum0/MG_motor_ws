@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/MG_Motor_test/MG_Motor_test.egg-info/PKG-INFO
+../../build/MG_Motor_test/MG_Motor_test.egg-info/SOURCES.txt
+../../build/MG_Motor_test/MG_Motor_test.egg-info/dependency_links.txt
+../../build/MG_Motor_test/MG_Motor_test.egg-info/entry_points.txt
+../../build/MG_Motor_test/MG_Motor_test.egg-info/requires.txt
+../../build/MG_Motor_test/MG_Motor_test.egg-info/top_level.txt
+../../build/MG_Motor_test/MG_Motor_test.egg-info/zip-safe
+MG_Motor_test/MG_Motor_Connect.py
+MG_Motor_test/__init__.py
+resource/MG_Motor_test
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
