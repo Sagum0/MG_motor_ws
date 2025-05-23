@@ -10,7 +10,7 @@ PORT = 'COM9'
 # 우분투용 포트
 # PORT = '/dev/ttyUSB0'
 
-MOTOR_ID = (1, 2)
+MOTOR_ID = (1, 2, 3, 4)
 poll_hz = 60
 
 def calc_checksum(buf: bytearray) -> int:
@@ -166,7 +166,7 @@ def main():
                 if count % (poll_hz * 2) == 0:
                     if angle_count >= 360:
                         angle_count = 0
-                    for m_id in (1, 2):
+                    for m_id in MOTOR_ID:
                         rotate_single_loop(ser, m_id, angle_deg=angle_count, speed_dps=2000.0, rev=False)
                     angle_count += 120
                 
